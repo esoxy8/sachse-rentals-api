@@ -1,0 +1,20 @@
+version: '3'
+services:
+  postgres:
+    # Official Postgres image from DockerHub (we use the last version)
+    image: 'postgres:14.4'
+
+    # [port we want on our machine]:[port we want to retrieve in the container]
+    ports:
+      - 5432:5432
+
+    volumes:
+      # Every time the repository is modifying the data inside
+      # of `/var/lib/postgresql/data/`, automatically the change will appear in `sachse-rentals-db-data`.
+      # You don't need to create the `sachse-rentals-db-data` folder. Docker Compose will do it for you.
+      - ./sachse-rentals-db-data/:/var/lib/postgresql/data/
+
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: gobills
+      POSTGRES_DB: sachse_rentals # The PostgreSQL default database (automatically created at first launch)
