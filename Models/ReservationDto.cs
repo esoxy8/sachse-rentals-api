@@ -6,6 +6,6 @@ namespace SachseRentalsApi.Models
         public long PaymentId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public bool PaidInFull { get; set; } = false;
+        public bool PaidInFull { get; set; }
     }
 }
