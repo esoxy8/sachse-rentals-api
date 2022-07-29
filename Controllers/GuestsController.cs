@@ -5,7 +5,7 @@ using SachseRentalsApi.Services;
 
 namespace SachseRentalsApi.Controllers
 {
-    [Route("api/guest")]
+    [Route("api/[controller]")]
     [ApiController]
     public class GuestController : ControllerBase
     {
