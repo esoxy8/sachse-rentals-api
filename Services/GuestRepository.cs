@@ -12,6 +12,11 @@ namespace SachseRentalsApi.Services
             _dbContext = dbContext;
         }
 
+        public async Task<Guest?> GetGuestByIdAsync(long guestId)
+        {
+            return await _dbContext.Guests.FirstOrDefaultAsync(guest => guest.Id == guestId);
+        }
+
         public async Task<IEnumerable<Guest>> GetGuestsAsync()
         {
             return await _dbContext.Guests.OrderBy(guest => guest.Id).ToListAsync();

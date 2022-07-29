@@ -1,4 +1,5 @@
 using SachseRentalsApi.Entities;
+using SachseRentalsApi.Models;
 
 
 namespace SachseRentalsApi.Services
@@ -7,10 +8,9 @@ namespace SachseRentalsApi.Services
     {
         Task<IEnumerable<Payment>> GetGuestPaymentsAsync(long guestId);
         Task<Payment?> GetPaymentAsync(long paymentId);
-        Task AddNewPaymentAsync(Payment newPayment);
-        Task SetPaymentAsReceivedAsync(DateTime time);
-        // todo: update this to work with enum
-        Task UpdatePaymentTypeAsync(int paymentType);
-        Task<bool> SaveChangesAsync();
+        Task<long> AddNewPaymentAsync(Payment newPayment);
+        Task SetPaymentAsReceivedAsync(Payment paymentEntity);
+        Task UpdatePaymentTypeAsync(Payment paymentEntity, PaymentType paymentType);
+        Task SaveChangesAsync();
     }
 }

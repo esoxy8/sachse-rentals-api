@@ -1,5 +1,6 @@
 using SachseRentalsApi.Entities;
 using Microsoft.EntityFrameworkCore;
+using SachseRentalsApi.Models;
 
 
 namespace SachseRentalsApi.Services
@@ -23,24 +24,50 @@ namespace SachseRentalsApi.Services
             return await _dbContext.Payments.FirstOrDefaultAsync(payment => payment.Id == paymentId);
         }
 
-        public async Task AddNewPaymentAsync(Payment newPayment)
+        public async Task<long> AddNewPaymentAsync(Payment newPayment)
         {
-            await _dbContext.AddAsync<Payment>(newPayment);
+            try
+            {
+                await _dbContext.AddAsync(newPayment);
+                await SaveChangesAsync();
+                return newPayment.Id;
+            }
+            catch (Exception e)
+            {
+                throw new DbUpdateException($"An error occurred adding payment. Payment Id: {newPayment.Id}.", e);
+            }
         }
 
-        public Task SetPaymentAsReceivedAsync(DateTime time)
+        public async Task SetPaymentAsReceivedAsync(Payment paymentEntity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                paymentEntity.Received = true;
+                paymentEntity.DateReceived = DateTime.UtcNow;
+                await SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new DbUpdateException($"An error occurred updating the payment received status. Payment Id: {paymentEntity.Id}", e);
+            }
         }
 
-        public Task UpdatePaymentTypeAsync(int paymentType)
+        public async Task UpdatePaymentTypeAsync(Payment paymentEntity, PaymentType paymentType)
         {
-            throw new NotImplementedException();
+            try
+            {
+                paymentEntity.Type = paymentType;
+                await SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new DbUpdateException($"An error occurred updating the payment type. Payment Id: {paymentEntity.Id}.", e);
+            }
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            return (await _dbContext.SaveChangesAsync() > 0);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

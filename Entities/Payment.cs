@@ -1,16 +1,10 @@
 using System.ComponentModel.DataAnnotations;
+using SachseRentalsApi.Models;
 
 namespace SachseRentalsApi.Entities 
 {
     public class Payment
     {
-        public enum PaymentType {
-            CARD,
-            CASH,
-            CHECK,
-            VENMO
-        }
-
         [Key]
         public long Id { get; set; }
 
