@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SachseRentalsApi.Entities;
+using SachseRentalsApi.Models;
 using SachseRentalsApi.Services;
 
 
@@ -25,6 +26,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // dependency injections
 builder.Services.AddScoped<IGuestRepository, GuestRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

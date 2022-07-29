@@ -40,7 +40,7 @@ public class PaymentController : ControllerBase
         
         var newPaymentEntity = _mapper.Map<Entities.Payment>(newPayment);
         var paymentId = await _paymentRepository.AddNewPaymentAsync(newPaymentEntity);
-        return Created($"A record of this payment was recorded. Payment Id: {paymentId}.", newPayment);
+        return Created("",$"A record of this payment was recorded. Payment Id: {paymentId}.");
     }
     
     [HttpGet("{paymentId}")]

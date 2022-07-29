@@ -19,7 +19,7 @@ namespace SachseRentalsApi.Entities
 
         [Required]
         public DateTime DateSubmitted { get; set; } = DateTime.UtcNow;
-        public bool Received { get; set; } = false;
+        public bool Received { get; set; }
         public DateTime DateReceived { get; set; }
     }
 }
