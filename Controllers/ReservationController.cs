@@ -12,14 +12,17 @@ public class ReservationController : ControllerBase
     private readonly IGuestRepository _guestRepository;
     private readonly IPaymentRepository _paymentRepository;
     private readonly IReservationRepository _reservationRepository;
+    private readonly IPropertyRepository _propertyRepository;
     private readonly IMapper _mapper;
 
     public ReservationController(IReservationRepository reservationRepository,
-        IPaymentRepository paymentRepository, IGuestRepository guestRepository, IMapper mapper)
+        IPaymentRepository paymentRepository, IGuestRepository guestRepository,
+        IPropertyRepository propertyRepository, IMapper mapper)
     {
         _reservationRepository = reservationRepository ?? throw new ArgumentNullException(nameof(reservationRepository));
         _paymentRepository = paymentRepository ?? throw new ArgumentNullException(nameof(paymentRepository));
         _guestRepository = guestRepository ?? throw new ArgumentNullException(nameof(guestRepository));
+        _propertyRepository = propertyRepository ?? throw new ArgumentNullException(nameof(propertyRepository));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
@@ -73,6 +76,12 @@ public class ReservationController : ControllerBase
         if (guestEntity == null)
         {
             return NotFound($"Guest not found. Cannot add reservation. Guest Id: {newReservation.GuestId}.");
+        }
+
+        var propertyEntity = await _propertyRepository.GetPropertyAsync(newReservation.PropertyId);
+        if (propertyEntity == null)
+        {
+            return NotFound($"Property not found. Cannot add reservation. Property Id: {newReservation.PropertyId}.");
         }
         
         var paymentEntity = await _paymentRepository.GetPaymentAsync(newReservation.PaymentId);

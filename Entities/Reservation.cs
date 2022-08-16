@@ -8,6 +8,9 @@ public class Reservation
 {
     [Key]
     public long Id { get; set; }
+    
+    [Required]
+    public int PropertyId { get; set; }
 
     [Required]
     public long GuestId { get; set; }
