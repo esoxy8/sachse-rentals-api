@@ -10,6 +10,8 @@ namespace SachseRentalsApi.Entities
         {}
 
         public DbSet<Admin> Admins => Set<Admin>();
+
+        public DbSet<Property> Properties => Set<Property>();
         public DbSet<Guest> Guests => Set<Guest>();
         public DbSet<Payment> Payments => Set<Payment>();
         public DbSet<Reservation> Reservations => Set<Reservation>();

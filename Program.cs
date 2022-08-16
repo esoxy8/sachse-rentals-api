@@ -24,6 +24,7 @@ builder.Services.AddDbContext<SachseRentalsDb>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // dependency injections
+builder.Services.AddScoped<IPropertyRepository, PropertyRepository>();
 builder.Services.AddScoped<IGuestRepository, GuestRepository>();
 builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
