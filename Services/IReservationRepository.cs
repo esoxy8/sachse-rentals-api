@@ -11,5 +11,6 @@ public interface IReservationRepository
     Task<long> AddNewReservationAsync(Reservation reservation);
     Task UpdateReservationStatusAsync(Reservation reservation, ReservationStatus reservationStatus);
     Task UpdateReservationPaidInFullStatusAsync(Reservation reservation);
+    Task<IEnumerable<Reservation>> GetUpcomingPropertyReservationsAsync(long propertyId);
     Task SaveChangesAsync();
 }

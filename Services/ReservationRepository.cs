@@ -72,7 +72,13 @@ public class ReservationRepository : IReservationRepository
             throw new DbUpdateException("Error updating the reservation's paid in full status to the database.");
         }
     }
-    
+
+    public async Task<IEnumerable<Reservation>> GetUpcomingPropertyReservationsAsync(long propertyId)
+    {
+        var today = DateTime.UtcNow.ToUniversalTime();
+        return await _dbContext.Reservations.Where(r => r.StartDate >= today && r.Status == ReservationStatus.UPCOMING).ToListAsync();
+    }
+
     public async Task SaveChangesAsync()
     {
         await _dbContext.SaveChangesAsync();
