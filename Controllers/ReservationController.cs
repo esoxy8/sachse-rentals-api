@@ -69,6 +69,13 @@ public class ReservationController : ControllerBase
         return Ok(nearestReservation);
     }
 
+    [HttpGet("property/upcoming/{propertyId}")]
+    public async Task<IActionResult> GetPropertyReservations(long propertyId)
+    {
+        var reservations = await _reservationRepository.GetUpcomingPropertyReservationsAsync(propertyId);
+        return Ok(reservations);
+    }
+
     [HttpPost]
     public async Task<IActionResult> AddNewReservation([FromBody] ReservationDto newReservation)
     {

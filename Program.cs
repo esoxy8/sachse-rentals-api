@@ -1,10 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using SachseRentalsApi.Entities;
-using SachseRentalsApi.Models;
 using SachseRentalsApi.Services;
 
+var  AllowedOrigins = "_allowedOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowedOrigins,
+        policy  =>
+        {
+            policy.WithOrigins(builder.Configuration["SachseRentalsUIConfig:Domain"]);
+        });
+});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -41,6 +50,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(AllowedOrigins);
 
 app.UseAuthorization();
 
